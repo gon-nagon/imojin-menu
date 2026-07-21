@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>芋甚 おしながき</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #EFE9DC;
+    --bg-soft: #F6F1E6;
+    --surface: #FBF8F1;
+    --surface-alt: #F1E9D6;
+    --ink: #2B2621;
+    --ink-soft: #5C544A;
+    --indigo: #223A5E;
+    --indigo-soft: #3C5476;
+    --azuki: #7B3B3B;
+    --azuki-soft: #9B5B54;
+    --gold: #A9822F;
+    --gold-soft: #C9A65C;
+    --line: #D9CDB2;
+    --radius: 14px;
+    --maxw: 720px;
+  }
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(255,255,255,0.5), transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(0,0,0,0.03), transparent 45%);
+    color: var(--ink);
+    font-family: "Zen Maru Gothic", "Noto Sans JP", "Noto Sans SC", "Noto Sans KR", sans-serif;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    word-break: keep-all;       /* CJK: avoid mid-word line breaks */
+    overflow-wrap: break-word;  /* still wrap if a single word is too long */
+  }
+  h1,h2,h3{ font-family: "Shippori Mincho", "Noto Serif JP", serif; margin:0; }
+
+  /* ---- top bar ---- */
+  .topbar{
+    position: sticky; top:0; z-index: 40;
+    background: rgba(251,248,241,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner{
+    max-width: var(--maxw); margin:0 auto;
+    display:flex; align-items:center; justify-content: space-between;
+    padding: 10px 16px;
+    gap: 10px;
+  }
+  .brandmark{ display:flex; align-items:center; gap:8px; }
+  .brandmark svg{ width:26px; height:26px; flex-shrink:0; }
+  .brandmark span{ font-family:"Shippori Mincho", serif; font-size: 1.05rem; font-weight:700; color:var(--indigo); letter-spacing:.04em; white-space:nowrap; }
+  .langs{ display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end; }
+  .lang-btn{
+    border:1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink-soft);
+    font-family: inherit;
+    font-size: 0.78rem;
+    padding: 7px 11px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all .15s ease;
+    white-space:nowrap;
+  }
+  .lang-btn:hover{ background: var(--surface-alt); }
+  .lang-btn.active{
+    background: var(--indigo);
+    border-color: var(--indigo);
+    color: #fff;
+    font-weight:700;
+  }
+
+  /* ---- hero ---- */
+  .hero{
+    max-width: var(--maxw); margin: 0 auto;
+    padding: 34px 20px 20px;
+    text-align:center;
+  }
+  .hero .ensou{ width:54px; height:54px; margin:0 auto 10px; display:block; opacity:.85; }
+  .hero h1{ font-size: 2.1rem; color: var(--ink); letter-spacing:.06em; }
+  .hero p{ margin-top:6px; color: var(--ink-soft); font-size: 0.95rem; letter-spacing:.08em; }
+
+  /* ---- category nav ---- */
+  .catnav-wrap{
+    position: sticky; top: 49px; z-index: 30;
+    background: var(--bg-soft);
+    border-bottom: 1px solid var(--line);
+  }
+  .catnav-wrap::after{
+    content:"";
+    position:absolute; top:0; right:0; bottom:0; width:32px;
+    background: linear-gradient(to right, transparent, var(--bg-soft) 75%);
+    pointer-events:none;
+  }
+  .catnav{
+    max-width: var(--maxw); margin:0 auto;
+    display:flex; gap:8px; overflow-x:auto;
+    padding: 10px 20px 10px 16px;
+    -ms-overflow-style: none; scrollbar-width: none;
+  }
+  .catnav::-webkit-scrollbar{ display:none; }
+  .catnav a{
+    flex-shrink:0;
+    font-size: 0.82rem;
+    text-decoration:none;
+    color: var(--indigo);
+    background: var(--surface);
+    border:1px solid var(--line);
+    padding: 7px 13px;
+    border-radius: 999px;
+    white-space:nowrap;
+    font-weight:500;
+  }
+
+  /* ---- main ---- */
+  main{ max-width: var(--maxw); margin: 0 auto; padding: 8px 16px 60px; }
+
+  .section{ padding-top: 40px; scroll-margin-top: 100px; }
+  .section-head{
+    display:flex; align-items:center; gap:10px; margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .section-head svg.mark{ width:30px; height:30px; flex-shrink:0; }
+  .section-head h2{ font-size: 1.35rem; letter-spacing: .04em; }
+  .badge{
+    display:inline-flex; align-items:center; gap:4px;
+    font-size: 0.7rem; font-weight:700;
+    padding: 4px 10px; border-radius: 999px;
+    letter-spacing:.03em;
+    white-space: nowrap;
+  }
+  .badge.seasonal{ background: var(--gold); color:#fff; }
+  .badge.popular{ background: var(--azuki); color:#fff; }
+
+  /* featured cards */
+  .featured-grid{
+    display:grid; grid-template-columns: 1fr; gap: 14px;
+    margin-bottom: 18px;
+  }
+  .sub-row{ display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .feature-card{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow:hidden;
+    position:relative;
+  }
+  .feature-card.main{ box-shadow: 0 3px 14px rgba(43,38,33,0.08); }
+  .photo-slot{
+    aspect-ratio: 4 / 3;
+    background:
+      repeating-linear-gradient(135deg, rgba(43,38,33,0.03) 0 10px, transparent 10px 20px),
+      var(--surface-alt);
+    border-bottom: 1px dashed var(--line);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    color: var(--ink-soft);
+    gap:6px;
+  }
+  .sub-row .photo-slot{ aspect-ratio: 1 / 1; }
+  .photo-slot svg{ width:30px; height:30px; opacity:.55; }
+  .sub-row .photo-slot svg{ width:22px; height:22px; }
+  .photo-slot span{ font-size: 0.72rem; letter-spacing:.03em; white-space:nowrap; }
+  .sub-row .photo-slot span{ font-size: 0.65rem; }
+
+  .feature-body{ padding: 14px 16px 16px; }
+  .sub-row .feature-body{ padding: 10px 12px 12px; }
+  .feature-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
+  .feature-name{ font-family:"Shippori Mincho", serif; font-size: 1.15rem; font-weight:700; }
+  .sub-row .feature-name{ font-size: 0.95rem; }
+  .feature-sub{ font-size: 0.78rem; color: var(--ink-soft); margin-top:2px; }
+  .feature-price{ font-weight:700; color: var(--indigo); white-space:nowrap; font-size: 1.05rem; }
+  .sub-row .feature-price{ font-size: 0.92rem; }
+  .feature-note{ font-size: 0.78rem; color: var(--ink-soft); margin-top: 6px; }
+
+  /* list rows */
+  .list{ border-top: 1px solid var(--line); }
+  .list-row{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    gap: 12px;
+    padding: 12px 2px;
+    border-bottom: 1px solid var(--line);
+  }
+  .list-row .name{ font-weight:700; font-size: 0.98rem; }
+  .list-row .sub{ font-size: 0.78rem; color: var(--ink-soft); margin-top: 2px; }
+  .list-row .note{ font-size: 0.75rem; color: var(--ink-soft); margin-top: 2px; }
+  .list-row .price{ font-weight:700; color: var(--indigo); white-space:nowrap; padding-top:2px; }
+  .category-note{ font-size: 0.75rem; color: var(--ink-soft); margin: 10px 2px 0; }
+
+  /* takeout section */
+  .takeout{
+    margin-top: 44px;
+    background: var(--surface-alt);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px 18px 8px;
+  }
+  .takeout .section-head{ margin-bottom: 8px; }
+  .takeout-note{ font-size: 0.8rem; color: var(--ink-soft); margin: -8px 0 14px; }
+  .takeout .list{ border-top: 1px solid var(--line); }
+
+  footer{
+    max-width: var(--maxw); margin: 40px auto 0; padding: 18px 20px 40px;
+    text-align:center; color: var(--ink-soft); font-size: 0.75rem; line-height:1.9;
+  }
+
+  @media (max-width: 420px){
+    .hero h1{ font-size: 1.7rem; }
+    .sub-row{ gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brandmark">
+      <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="17" stroke="var(--indigo)" stroke-width="2.4" stroke-dasharray="97 8" stroke-linecap="round" transform="rotate(-40 20 20)"/></svg>
+      <span id="brandText">おしながき</span>
+    </div>
+    <div class="langs" id="langSwitch"></div>
+  </div>
+</div>
+
+<div class="catnav-wrap">
+  <nav class="catnav" id="catNav"></nav>
+</div>
+
+<div class="hero">
+  <svg class="ensou" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="16" stroke="var(--azuki)" stroke-width="2.2" stroke-dasharray="92 12" stroke-linecap="round" transform="rotate(120 20 20)"/></svg>
+  <h1 id="heroTitle">おしながき</h1>
+  <p id="heroSubtitle">芋甚メニュー</p>
+</div>
+
+<main id="main"></main>
+
+<footer id="footer"></footer>
+
+<script>
+/* =========================================================
+   DATA
+   各カテゴリーの items は元のメニュー表の並び順そのまま。
+   photo:'main' / 'sub' を付けた商品は写真カードとしても表示され、
+   一覧(list)にも通常どおり同じ商品が並びます。
+   ========================================================= */
+const UI = {
+  ja: { brand:"おしながき", heroTitle:"おしながき", heroSub:"芋甚メニュー",
+    langName:"日本語", popular:"人気No.1", seasonal:"夏季限定", photoSoon:"写真準備中",
+    takeoutTitle:"お持ち帰り用", takeoutNote:"店内でのご注文とは価格が異なります",
+    kakigoriNote:"「ミルク」は練乳、「クリーム」はバニラアイスを使用しています",
+    footer:"写真は準備中です。価格・内容は変更になる場合がございます。",
+    yen:"円" },
+  en: { brand:"Menu", heroTitle:"Menu", heroSub:"Imojin Menu",
+    langName:"English", popular:"Most Popular", seasonal:"Summer Only", photoSoon:"Photo coming soon",
+    takeoutTitle:"Takeout", takeoutNote:"Prices differ from dine-in items",
+    kakigoriNote:"\"Milk\" means condensed milk; \"Cream\" means vanilla ice cream.",
+    footer:"Photos are being prepared. Prices and items are subject to change.",
+    yen:"yen" },
+  zh: { brand:"菜单", heroTitle:"菜单", heroSub:"芋甚 菜单",
+    langName:"中文", popular:"人气第一", seasonal:"夏季限定", photoSoon:"图片准备中",
+    takeoutTitle:"外带专用", takeoutNote:"价格与店内用餐不同",
+    kakigoriNote:"「牛奶」为炼乳，「奶油」为香草冰淇淋。",
+    footer:"图片正在准备中。价格与内容如有变更，恕不另行通知。",
+    yen:"日元" },
+  ko: { brand:"메뉴", heroTitle:"메뉴", heroSub:"이모진 메뉴",
+    langName:"한국어", popular:"인기 1위", seasonal:"여름 한정", photoSoon:"사진 준비중",
+    takeoutTitle:"포장 전용", takeoutNote:"매장 이용 가격과 다릅니다",
+    kakigoriNote:"'밀크'는 연유, '크림'은 바닐라 아이스크림을 사용합니다.",
+    footer:"사진은 준비 중입니다. 가격 및 내용은 변경될 수 있습니다.",
+    yen:"엔" }
+};
+
+const CATEGORIES = [
+  {
+    id:"ice",
+    title:{ja:"アイス", en:"Ice Cream", zh:"冰淇淋", ko:"아이스크림"},
+    items:[
+      {ja:"アベックアイス", en:"Avec Ice", zh:"双拼冰淇淋", ko:"아베크 아이스",
+       note:{ja:"バニラと小倉の盛り合わせ", en:"Vanilla & red bean (ogura), served together", zh:"香草与红豆(小仓)拼盘", ko:"바닐라와 팥(오구라) 모둠"},
+       price:400, photo:"main"},
+      {ja:"バニラアイス", en:"Vanilla Ice Cream", zh:"香草冰淇淋", ko:"바닐라 아이스크림",
+       note:{ja:"バニラのダブル", en:"Double scoop, vanilla", zh:"双份香草", ko:"바닐라 더블"}, price:400},
+      {ja:"小倉アイス", en:"Ogura (Red Bean) Ice Cream", zh:"红豆冰淇淋", ko:"오구라(팥) 아이스크림",
+       note:{ja:"小倉のダブル", en:"Double scoop, red bean", zh:"双份红豆", ko:"팥 더블"}, price:400},
+      {ja:"もなか一組(2枚)", en:"Monaka wafer set (2 pcs)", zh:"最中脆饼(2片)", ko:"모나카 세트(2장)",
+       note:{ja:"追加トッピング", en:"Add-on topping", zh:"加购小食", ko:"추가 토핑"}, price:40, plus:true},
+      {ja:"バニラコーンアイス", en:"Vanilla Cone", zh:"香草甜筒", ko:"바닐라 콘", price:270},
+      {ja:"小倉コーンアイス", en:"Ogura (Red Bean) Cone", zh:"红豆甜筒", ko:"오구라(팥) 콘", price:270},
+      {ja:"チョコレートサンデー", en:"Chocolate Sundae", zh:"巧克力圣代", ko:"초콜릿 선데이", price:450, photo:"main"}
+    ]
+  },
+  {
+    id:"anmitsu",
+    title:{ja:"あんみつ・寒天", en:"Anmitsu & Agar Sweets", zh:"蜜豆·寒天", ko:"안미츠·한천"},
+    items:[
+      {ja:"あんみつ", en:"Anmitsu", zh:"蜜豆什锦", ko:"안미츠", price:500},
+      {ja:"みつまめ", en:"Mitsumame", zh:"蜜豆", ko:"미츠마메", price:500},
+      {ja:"まめかん", en:"Mamekan", zh:"豆寒天", ko:"마메칸", price:500, photo:"sub"},
+      {ja:"餡まめかん", en:"Anko Mamekan", zh:"豆沙豆寒天", ko:"팥소 마메칸",
+       note:{ja:"餡子入り", en:"With sweet red bean paste", zh:"附红豆沙", ko:"팥소 포함"}, price:570},
+      {ja:"クリームあんみつ", en:"Cream Anmitsu", zh:"奶油蜜豆", ko:"크림 안미츠",
+       note:{ja:"バニラアイス入り", en:"With vanilla ice cream", zh:"附香草冰淇淋", ko:"바닐라 아이스크림 포함"}, price:600},
+      {ja:"クリームみつまめ", en:"Cream Mitsumame", zh:"奶油蜜豆", ko:"크림 미츠마메",
+       note:{ja:"バニラアイス入り", en:"With vanilla ice cream", zh:"附香草冰淇淋", ko:"바닐라 아이스크림 포함"}, price:600},
+      {ja:"クリームまめかん", en:"Cream Mamekan", zh:"奶油豆寒天", ko:"크림 마메칸",
+       note:{ja:"バニラアイス入り", en:"With vanilla ice cream", zh:"附香草冰淇淋", ko:"바닐라 아이스크림 포함"}, price:600},
+      {ja:"小倉あんみつ", en:"Ogura Anmitsu", zh:"红豆蜜豆", ko:"오구라 안미츠",
+       note:{ja:"小倉アイス入り", en:"With red bean ice cream", zh:"附红豆冰淇淋", ko:"팥 아이스크림 포함"}, price:600},
+      {ja:"小倉みつまめ", en:"Ogura Mitsumame", zh:"红豆蜜豆", ko:"오구라 미츠마메",
+       note:{ja:"小倉アイス入り", en:"With red bean ice cream", zh:"附红豆冰淇淋", ko:"팥 아이스크림 포함"}, price:600},
+      {ja:"小倉まめかん", en:"Ogura Mamekan", zh:"红豆豆寒天", ko:"오구라 마메칸",
+       note:{ja:"小倉アイス入り", en:"With red bean ice cream", zh:"附红豆冰淇淋", ko:"팥 아이스크림 포함"}, price:600},
+      {ja:"アベックあんみつ", en:"Avec Anmitsu", zh:"双拼蜜豆", ko:"아베크 안미츠",
+       note:{ja:"バニラ・小倉アイス入り", en:"With vanilla & red bean ice cream", zh:"附香草与红豆冰淇淋", ko:"바닐라·팥 아이스크림 포함"},
+       price:700, photo:"main", tag:"popular"},
+      {ja:"アベックみつまめ", en:"Avec Mitsumame", zh:"双拼蜜豆", ko:"아베크 미츠마메",
+       note:{ja:"バニラ・小倉アイス入り", en:"With vanilla & red bean ice cream", zh:"附香草与红豆冰淇淋", ko:"바닐라·팥 아이스크림 포함"}, price:700},
+      {ja:"アベックまめかん", en:"Avec Mamekan", zh:"双拼豆寒天", ko:"아베크 마메칸",
+       note:{ja:"バニラ・小倉アイス入り", en:"With vanilla & red bean ice cream", zh:"附香草与红豆冰淇淋", ko:"바닐라·팥 아이스크림 포함"}, price:700},
+      {ja:"クリームぜんざい", en:"Cream Zenzai", zh:"奶油汁粉", ko:"크림 젠자이",
+       note:{ja:"バニラアイス入り", en:"With vanilla ice cream", zh:"附香草冰淇淋", ko:"바닐라 아이스크림 포함"}, price:570},
+      {ja:"寒天クリームぜんざい", en:"Cream Zenzai with Agar", zh:"奶油汁粉(附寒天)", ko:"한천 크림 젠자이",
+       note:{ja:"寒天・バニラアイス入り", en:"With agar jelly & vanilla ice cream", zh:"附寒天与香草冰淇淋", ko:"한천·바닐라 아이스크림 포함"}, price:700, photo:"sub"},
+      {ja:"くずもち", en:"Kuzumochi", zh:"葛饼", ko:"쿠즈모치",
+       note:{ja:"黒蜜・きな粉付き", en:"Served with brown sugar syrup & kinako", zh:"附黑糖蜜与黄豆粉", ko:"흑설탕 시럽·콩가루 포함"}, price:500},
+      {ja:"ところてん", en:"Tokoroten", zh:"石花菜凉粉", ko:"도코로텐",
+       note:{ja:"三杯酢", en:"Served with sanbaizu (sweet vinegar sauce)", zh:"配三杯醋", ko:"삼배초(단식초) 곁들임"}, price:450},
+      {ja:"ところてん 大盛り", en:"Tokoroten (Large)", zh:"石花菜凉粉(大份)", ko:"도코로텐(곱빼기)",
+       note:{ja:"三杯酢", en:"Served with sanbaizu (sweet vinegar sauce)", zh:"配三杯醋", ko:"삼배초(단식초) 곁들임"}, price:570}
+    ]
+  },
+  {
+    id:"cream-soda",
+    title:{ja:"クリームソーダ・ドリンク", en:"Cream Soda & Drinks", zh:"奶油苏打·饮品", ko:"크림 소다·음료"},
+    items:[
+      {ja:"クリームソーダ", en:"Cream Soda", zh:"奶油苏打", ko:"크림 소다",
+       note:{ja:"バニラアイス入り", en:"With vanilla ice cream", zh:"附香草冰淇淋", ko:"바닐라 아이스크림 포함"}, price:500, photo:"main"},
+      {ja:"コーラフロート", en:"Cola Float", zh:"可乐漂浮", ko:"콜라 플로트",
+       note:{ja:"バニラアイス入り", en:"With vanilla ice cream", zh:"附香草冰淇淋", ko:"바닐라 아이스크림 포함"}, price:500},
+      {ja:"オレンジフロート", en:"Orange Float", zh:"橙汁漂浮", ko:"오렌지 플로트",
+       note:{ja:"バニラアイス入り", en:"With vanilla ice cream", zh:"附香草冰淇淋", ko:"바닐라 아이스크림 포함"}, price:500},
+      {ja:"カルピスフロート", en:"Calpis Float", zh:"可尔必思漂浮", ko:"칼피스 플로트",
+       note:{ja:"バニラアイス入り", en:"With vanilla ice cream", zh:"附香草冰淇淋", ko:"바닐라 아이스크림 포함"}, price:500},
+      {ja:"ソーダ水", en:"Soda Water", zh:"苏打水", ko:"소다수", price:400},
+      {ja:"コカコーラ", en:"Coca-Cola", zh:"可口可乐", ko:"코카콜라", price:400},
+      {ja:"オレンジジュース", en:"Orange Juice", zh:"橙汁", ko:"오렌지 주스", price:400},
+      {ja:"カルピス", en:"Calpis", zh:"可尔必思", ko:"칼피스", price:400}
+    ]
+  },
+  {
+    id:"kakigori",
+    seasonal:true,
+    title:{ja:"かき氷", en:"Shaved Ice", zh:"刨冰", ko:"빙수"},
+    items:[
+      {ja:"氷 いちご", en:"Strawberry", zh:"草莓", ko:"딸기", price:500},
+      {ja:"氷 いちごクリーム", en:"Strawberry Cream", zh:"草莓奶油", ko:"딸기 크림", price:600},
+      {ja:"氷 いちごミルク", en:"Strawberry Milk Shaved Ice", zh:"草莓牛奶刨冰", ko:"딸기 우유 빙수", price:600, photo:"sub"},
+      {ja:"氷 れもん", en:"Lemon", zh:"柠檬", ko:"레몬", price:500},
+      {ja:"氷 れもんクリーム", en:"Lemon Cream", zh:"柠檬奶油", ko:"레몬 크림", price:600},
+      {ja:"氷 メロン", en:"Melon", zh:"哈密瓜", ko:"멜론", price:500},
+      {ja:"氷 メロンクリーム", en:"Melon Cream", zh:"哈密瓜奶油", ko:"멜론 크림", price:600},
+      {ja:"氷 水", en:"Plain Syrup", zh:"糖水刨冰", ko:"시럽 빙수", price:500},
+      {ja:"氷 水クリーム", en:"Plain Syrup Cream", zh:"糖水奶油刨冰", ko:"시럽 크림", price:600},
+      {ja:"氷 ミルク", en:"Milk Syrup", zh:"炼乳刨冰", ko:"밀크 빙수", price:600},
+      {ja:"氷 ミルククリーム", en:"Milk Syrup Cream", zh:"炼乳奶油刨冰", ko:"밀크 크림", price:700},
+      {ja:"氷 牛乳", en:"Milk Shaved Ice", zh:"牛奶刨冰", ko:"우유 빙수", price:600, photo:"sub"},
+      {ja:"氷 黒蜜きな粉", en:"Brown Sugar Syrup & Kinako", zh:"黑糖蜜黄豆粉", ko:"흑설탕 콩가루", price:700},
+      {ja:"氷 あずき", en:"Red Bean", zh:"红豆", ko:"팥", price:600},
+      {ja:"氷 あずきクリーム", en:"Red Bean Cream", zh:"红豆奶油", ko:"팥 크림", price:700},
+      {ja:"氷 あずきミルク", en:"Red Bean Milk", zh:"红豆牛奶", ko:"팥 우유", price:700},
+      {ja:"氷 カルピス", en:"Calpis", zh:"可尔必思刨冰", ko:"칼피스 빙수", price:600},
+      {ja:"氷 カルピスクリーム", en:"Calpis Cream", zh:"可尔必思奶油", ko:"칼피스 크림", price:700},
+      {ja:"氷 オレンジ", en:"Orange", zh:"橙味刨冰", ko:"오렌지 빙수", price:600},
+      {ja:"氷 オレンジクリーム", en:"Orange Cream", zh:"橙味奶油", ko:"오렌지 크림", price:700},
+      {ja:"氷 しるこ", en:"Shiruko (Sweet Red Bean Soup)", zh:"红豆汤刨冰", ko:"단팥죽 빙수", price:600},
+      {ja:"氷 宇治", en:"Uji Matcha", zh:"宇治抹茶", ko:"우지 말차", price:600},
+      {ja:"氷 宇治クリーム", en:"Uji Matcha Cream", zh:"宇治抹茶奶油", ko:"우지 말차 크림", price:700},
+      {ja:"氷 宇治ミルク", en:"Uji Matcha Milk", zh:"宇治抹茶牛奶", ko:"우지 말차 우유", price:700},
+      {ja:"氷 宇治金時", en:"Uji Matcha & Red Bean", zh:"宇治抹茶红豆", ko:"우지 말차 팥", price:700},
+      {ja:"氷 宇治金時ミルク", en:"Uji Matcha, Red Bean & Milk Shaved Ice", zh:"宇治抹茶红豆牛奶刨冰", ko:"우지 말차 팥 우유 빙수",
+       price:800, photo:"main", tag:"popular"}
+    ]
+  }
+];
+
+const TAKEOUT = {
+  title:{ja:"お持ち帰り用", en:"Takeout", zh:"外带专用", ko:"포장 전용"},
+  items:[
+    {ja:"あんみつ", en:"Anmitsu", zh:"蜜豆什锦", ko:"안미츠", price:470},
+    {ja:"みつまめ", en:"Mitsumame", zh:"蜜豆", ko:"미츠마메", price:470},
+    {ja:"まめかん", en:"Mamekan", zh:"豆寒天", ko:"마메칸", price:470},
+    {ja:"ところてん", en:"Tokoroten", zh:"石花菜凉粉", ko:"도코로텐",
+     note:{ja:"三杯酢", en:"Served with sanbaizu (sweet vinegar sauce)", zh:"配三杯醋", ko:"삼배초(단식초) 곁들임"}, price:420},
+    {ja:"くずもち(2〜3人前)", en:"Kuzumochi (serves 2–3)", zh:"葛饼(2~3人份)", ko:"쿠즈모치(2~3인분)", price:940}
+  ]
+};
+
+/* =========================================================
+   RENDER
+   ========================================================= */
+let currentLang = "ja";
+
+const svgCamera = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z"/><circle cx="12" cy="14" r="3.4"/></svg>`;
+const svgMarkIce = `<svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" fill="none" stroke="var(--indigo-soft)" stroke-width="2" stroke-dasharray="88 14" stroke-linecap="round" transform="rotate(30 20 20)"/></svg>`;
+const svgMarkGold = `<svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" fill="none" stroke="var(--gold)" stroke-width="2" stroke-dasharray="88 14" stroke-linecap="round" transform="rotate(-70 20 20)"/></svg>`;
+
+function priceStr(n){
+  const u = UI[currentLang];
+  if(currentLang==="ja") return n.toLocaleString("ja-JP") + u.yen;
+  if(currentLang==="zh") return "¥" + n.toLocaleString();
+  if(currentLang==="ko") return n.toLocaleString() + u.yen;
+  return "¥" + n.toLocaleString();
+}
+
+function photoSlot(){
+  const u = UI[currentLang];
+  return `<div class="photo-slot">${svgCamera}<span>${u.photoSoon}</span></div>`;
+}
+
+function renderLangSwitch(){
+  const wrap = document.getElementById("langSwitch");
+  wrap.innerHTML = "";
+  Object.keys(UI).forEach(code=>{
+    const b = document.createElement("button");
+    b.className = "lang-btn" + (code===currentLang ? " active":"");
+    b.textContent = UI[code].langName;
+    b.onclick = ()=>{ currentLang = code; renderAll(); };
+    wrap.appendChild(b);
+  });
+}
+
+function renderCatNav(){
+  const nav = document.getElementById("catNav");
+  nav.innerHTML = "";
+  CATEGORIES.forEach(cat=>{
+    const a = document.createElement("a");
+    a.href = "#" + cat.id;
+    a.textContent = cat.title[currentLang];
+    nav.appendChild(a);
+  });
+  const a = document.createElement("a");
+  a.href = "#takeout";
+  a.textContent = TAKEOUT.title[currentLang];
+  nav.appendChild(a);
+}
+
+function featureCard(item, isSub){
+  const u = UI[currentLang];
+  const name = item[currentLang] || item.ja;
+  const note = item.note ? (item.note[currentLang] || "") : "";
+  const priceLabel = (item.plus ? "+" : "") + priceStr(item.price);
+  return `
+    <div class="feature-card ${isSub? "sub":"main"}">
+      ${photoSlot()}
+      <div class="feature-body">
+        <div class="feature-top">
+          <div>
+            <div class="feature-name">${name}</div>
+            ${note ? `<div class="feature-sub">${note}</div>` : ""}
+          </div>
+          <div class="feature-price">${priceLabel}</div>
+        </div>
+        ${item.tag==="popular" ? `<div class="feature-note"><span class="badge popular">★ ${u.popular}</span></div>` : ""}
+      </div>
+    </div>`;
+}
+
+function listRow(item){
+  const name = item[currentLang] || item.ja;
+  const note = item.note ? (item.note[currentLang] || "") : "";
+  const priceLabel = (item.plus ? "+" : "") + priceStr(item.price);
+  return `
+    <div class="list-row">
+      <div>
+        <div class="name">${name}</div>
+        ${note ? `<div class="note">${note}</div>` : ""}
+      </div>
+      <div class="price">${priceLabel}</div>
+    </div>`;
+}
+
+function renderCategory(cat){
+  const u = UI[currentLang];
+  const mainFeatured = cat.items.filter(i=>i.photo==="main");
+  const subFeatured = cat.items.filter(i=>i.photo==="sub");
+
+  let featuredHtml = "";
+  if(mainFeatured.length || subFeatured.length){
+    featuredHtml += `<div class="featured-grid">`;
+    mainFeatured.forEach(f=>{ featuredHtml += featureCard(f, false); });
+    if(subFeatured.length){
+      featuredHtml += `<div class="sub-row">`;
+      subFeatured.forEach(f=>{ featuredHtml += featureCard(f, true); });
+      featuredHtml += `</div>`;
+    }
+    featuredHtml += `</div>`;
+  }
+
+  const listHtml = `<div class="list">${cat.items.map(listRow).join("")}</div>`;
+  const categoryNote = cat.id === "kakigori" ? `<p class="category-note">${u.kakigoriNote}</p>` : "";
+
+  return `
+    <section class="section" id="${cat.id}">
+      <div class="section-head">
+        <span class="mark" style="width:30px;display:inline-flex">${svgMarkIce}</span>
+        <h2>${cat.title[currentLang]}</h2>
+        ${cat.seasonal ? `<span class="badge seasonal">${u.seasonal}</span>` : ""}
+      </div>
+      ${featuredHtml}
+      ${listHtml}
+      ${categoryNote}
+    </section>`;
+}
+
+function renderTakeout(){
+  const u = UI[currentLang];
+  return `
+    <section class="takeout" id="takeout">
+      <div class="section-head">
+        <span class="mark" style="width:30px;display:inline-flex">${svgMarkGold}</span>
+        <h2>${TAKEOUT.title[currentLang]}</h2>
+      </div>
+      <p class="takeout-note">${u.takeoutNote}</p>
+      <div class="list">${TAKEOUT.items.map(listRow).join("")}</div>
+    </section>`;
+}
+
+function renderAll(){
+  const u = UI[currentLang];
+  document.documentElement.lang = currentLang;
+  document.getElementById("brandText").textContent = u.brand;
+  document.getElementById("heroTitle").textContent = u.heroTitle;
+  document.getElementById("heroSubtitle").textContent = u.heroSub;
+  document.getElementById("footer").textContent = u.footer;
+
+  renderLangSwitch();
+  renderCatNav();
+
+  const main = document.getElementById("main");
+  main.innerHTML = CATEGORIES.map(renderCategory).join("") + renderTakeout();
+}
+
+renderAll();
+</script>
+</body>
+</html>
